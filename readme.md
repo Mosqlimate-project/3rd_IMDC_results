@@ -116,9 +116,9 @@ The figures below present, for each region, the three highest-ranked models base
 
 Filtering by the models with mean $R_v < 1$ by state we generated the following plots: 
 
-<img src="figures/n_states_out_base_by_model.png" width="1500">
+<img src="figures/n_states_out_base_by_model.png" width="1000">
 
-<img src='figures/n_models_out_base_by_state.png' width="1500">
+<img src='figures/n_models_out_base_by_state.png' width="1000">
 
 The violin plots below show the distribution of the performance ratio ((R)) across all validation periods. This analysis can be performed using data from all states, as shown below,
 
