@@ -1,5 +1,6 @@
 model_name,disease,qtd_adm,todos_com_4_validaçoes,challenge,dados_corretos
-americocunhajr/3rd_imdc_lncc_clidengo26chikungunya,A92.0,25,False,chik_state,False
+blaiate/3rd_imdc_-unifesp-_-4mosqueteiras-,A90,26,True,dengue_state,True
+americocunhajr/3rd_imdc_lncc_clidengo26chikungunya,A92.0,26,True,chik_state,True
 americocunhajr/3rd_imdc_lncc_clidengo26dengue,A90,26,True,dengue_state,True
 eduardocorrearaujo/3rd_imdc_emap_example,A90,3,False,dengue_state,False
 DiogoParreira/3rd_imdc_rki_rki_zki_ph,A90,26,True,dengue_state,True
@@ -8,7 +9,6 @@ DiogoParreira/3rd_imdc_rki_rki_zki_ph_lstm_geo,A90,26,True,dengue_state,True
 joel-da-silva-cavalcanti-filho/3rd_imdc_unesp_recogna,A90,26,True,dengue_state,True
 joel-da-silva-cavalcanti-filho/3rd_imdc_unesp_recogna,A90,15,True,dengue_city,True
 Ricafya/3rd_imdc_afya_ric,A90,26,True,dengue_state,True
-blaiate/3rd_imdc_-unifesp-_-4mosqueteiras-,A90,26,False,dengue_state,False
 lsbastos/3rd_imdc_procc_bb_model,A90,26,True,dengue_state,True
 lsbastos/3rd_imdc_procc_bb_model,A92.0,26,True,chik_state,True
 marciomacielbastos/3rd_imdc_fgv_sakhal,A90,26,True,dengue_state,True
@@ -66,3 +66,4 @@ eduardocorrearaujo/3rd_imdc_emap_lstm,A90,26,True,dengue_state,True
 eduardocorrearaujo/3rd_imdc_emap_lstm,A92.0,26,True,chik_state,True
 eduardocorrearaujo/3rd_imdc_emap_lstm_muni,A90,15,True,dengue_city,True
 eduardocorrearaujo/3rd_imdc_emap_lstm_muni,A92.0,10,True,chik_city,True
+pesquefGH/3rd_imdc_lncc_surge_model26_chikungunya,A92.0,26,True,chik_state,True
