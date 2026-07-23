@@ -2,11 +2,11 @@
 
 ## Objective
 
-Four alternative methodologies for producing a **global ranking of forecasting models** were evaluated, denoted by **rk_1**, **rk_2**, **rk_3**, and **rk_4**. The objective of this comparison was twofold.
+Four alternative methodologies for producing a **global ranking of forecasting models** were evaluated, denoted by **rk_1**, **rk_2**, **rk_3**, and **rk_4**. 
 
-First, the global ranking obtained for each state was used to select the top five forecasting models. A median ensemble was then constructed from these models for each validation set. Finally, the Weighted Interval Score (WIS) of the resulting ensemble forecasts was calculated for each validation set, allowing the forecasting performance of the different ranking methodologies to be compared.
+First, we computed the Normalized Discounted Cumulative Gain (NDCG) to assess the agreement between each global ranking methodology and the ranking induced by WIS in each validation. The global ranks were used as the predicted scores, while the relevance of each model was defined as the inverse of its WIS (1/WIS), computed for the corresponding validation set. The NDCG was calculated using the `ndcg_score` function from the scikit-learn library
 
-As a second validation, we computed the Normalized Discounted Cumulative Gain (NDCG) to assess the agreement between each global ranking methodology and the ranking induced by WIS in each validation. The model ranks were used as the predicted scores, while the relevance of each model was defined as the inverse of its WIS (1/WIS), computed for the corresponding validation set. The NDCG was calculated using the ndcg_score function from the scikit-learn library
+As a second validation, the global ranking obtained for each state was used to select the top five forecasting models. A median ensemble was then constructed from these models for each validation set. Finally, the Weighted Interval Score (WIS) of the resulting ensemble forecasts was calculated for each validation set, allowing the forecasting performance of the different ranking methodologies to be compared.
 
 Together, these analyses allow us to distinguish between ranking methods that better reproduce the "ideal" ordering of models and those that ultimately lead to better forecasting performance.
 
@@ -99,7 +99,7 @@ The notebook summarizes the results through:
 According to both the mean and median NDCG values, `rk_3` achieved the best overall performance among the evaluated ranking methodologies.
 
 
-![](comp_ndgc.png)
+![](figures/comp_ndgc.png)
 ---
 
 # Forecasting Performance Evaluation
@@ -133,8 +133,8 @@ Conversely, **rk_4** rarely produced the lowest WIS, suggesting that its ranking
 
 Furthermore, when the results were analyzed separately for each validation set, the first validation showed a tie between `rk_1` and `rk_3`. As expected, `rk_1` was the dominant methodology in the second validation. In the third validation, `rk_3` achieved the best performance, whereas in the fourth validation, `rk_2` was the predominant methodology, followed by `rk_1` and `rk_3`. These results are illustrated in the figure below.
 
-![](comp_rank_prop.png)
+![](figures/comp_rank_prop.png)
 
 Additionally, we computed the WIS ratio, WIS_{rk_3}/WIS_{rk_1}, to quantify the relative performance of `rk_3` compared to `rk_1`. Ratios below one indicate improved performance of `rk_3`. The analysis shows that `rk_3` consistently outperformed or matched `rk_1` across most states and validation sets, with the exception of validation 2, where this advantage was not observed.
 
-![](prop_below_one.png)
+![](figures/prop_below_one.png)

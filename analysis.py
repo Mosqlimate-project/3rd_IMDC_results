@@ -2,6 +2,8 @@ import numpy as np
 import scipy.stats as st
 import lmfit as lm
 from lmfit import Parameters
+from datetime import timedelta
+from epiweeks import Week
 
 def estimate_rho(df_grp, eps=1e-12):
     # Pandas usa drop_duplicates e sort_values
@@ -94,8 +96,46 @@ def otim_single_path(path_array):
     out = lm.minimize(obj_fun_path, params, args=(t, casos_cum), method="nelder")
     p = out.params.valuesdict()
     
+
+    richfun_opt = richards(
+        p["L1"], p["a1"], p["b1"], t, p["tp1"]
+    )
+
     # Extração das métricas de interesse deste caminho:
     semana_pico = p["tp1"]                 # O parâmetro tp1 é o ponto de inflexão (pico diário/semanal)
     r0 = 1 + (p["b1"] / p["gamma"])        # R0 baseado na taxa b1 e no gamma estimado
+
+    t_ini = comp_ini(richfun_opt, threshold=0.05)
+
+    diff_richards = np.concatenate(([0], np.diff(richfun_opt)))
+    max_c = diff_richards.max()
     
-    return r0, semana_pico
+    return r0, semana_pico, t_ini, max_c, richfun_opt
+
+
+def comp_ini(richards, threshold=0.05):
+    """
+    Retorna a primeira posição em que a derivada discreta da curva de Richards
+    é maior ou igual a `threshold * max(diff)`.
+
+    Parameters
+    ----------
+    richards : array-like
+        Saída do modelo de Richards.
+    threshold : float, default=0.05
+        Fração do máximo da derivada.
+
+    Returns
+    -------
+    int or None
+        Índice da primeira posição que satisfaz a condição.
+        Retorna None caso nenhuma posição satisfaça.
+    """
+    richards = np.asarray(richards)
+
+    diff_richards = np.concatenate(([0], np.diff(richards)))
+    max_c = diff_richards.max()
+
+    idx = np.where(diff_richards >= threshold * max_c)[0]
+
+    return idx[0] if len(idx) else None

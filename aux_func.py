@@ -47,7 +47,8 @@ rename_models = {'3rd_imdc_isi_isi-dengue': 'ISI',
                                '3rd_imdc_rki_rki_zki_ph_lstm_geo': "RKI_LSTM",
                                               '3rd_imdc_afya_ric': "AFYA",
                                         '3rd_imdc_rki_rki_zki_ph': "RKI_PH",
-                       '3rd_imdc_emap_epidematicos_sarimax_state': 'EMAP_SARIMAX'} 
+                       '3rd_imdc_emap_epidematicos_sarimax_state': 'EMAP_SARIMAX', 
+                       '3rd_imdc_-unifesp-_-4mosqueteiras-': 'UNIFESP'} 
 
 estado_para_regiao = {est: reg for reg, estados in regioes.items() for est in estados}
 

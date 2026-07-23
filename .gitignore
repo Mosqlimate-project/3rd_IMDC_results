@@ -2,6 +2,8 @@
 # GITIGNORE PADRÃO PARA PROJETOS PYTHON
 # ==========================================
 
+samples/
+
 # Arquivos compilados / otimizados / DLLs do Python
 __pycache__/
 *.pyc

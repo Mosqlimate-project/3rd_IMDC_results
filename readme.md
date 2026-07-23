@@ -1,6 +1,6 @@
 # 3rd Infodengue-Mosqlimate Dengue Challenge (IMDC): 2026 Sprint for dengue fever forecasts for Brazil
 
-The Infodengue-Mosqlimate Dengue Challenge (IMDC) is an initiative led by the Mosqlimate and Infodengue in collaboration with the Harmonize and IDExtremes projects.
+The Infodengue-Mosqlimate Dengue Challenge (IMDC) is an initiative led by the Mosqlimate and Infodengue. 
 
 The objective of this 2026 sprint is **to promote training of predictive models and to develop high-quality ensemble forecast models for dengue in Brazil.**
 
@@ -57,12 +57,13 @@ This document presents the results for the **Mandatory Challenge (Dengue – Sta
 | SAKHAL | FGV-EMAP | Brazil | https://github.com/marciomacielbastos/3rd_imdc_fgv_sakhal | EMAP_SAKHAL |
 | ZEROLAGS | FIOCRUZ | Brazil | https://github.com/Luizsrs/3rd_imdc_fiocruz_zerolags | FIOCRUZ_ZEROLAGS |
 | Pattern-Blue | FGV-EMAP | Brazil | https://github.com/ZuilhoSe/3rd_imdc_fgv_pattern-blue | EMAP_BLUE | 
-| Dengue Oracle | FGV-EMAP | Brazil | https://github.com/eduardocorrearaujo/3rd_imdc_emap_lstm_muni | EMAP_LSTM | 
+| Dengue Oracle | FGV-EMAP | Brazil | https://github.com/eduardocorrearaujo/3rd_imdc_emap_lstm | EMAP_LSTM | 
 | Neural Earth | Purdue University | United States |https://github.com/kamrul28890/3rd_imdc_purdue_neuralearth | PURDUE | 
 | BB model | PROCC | Brazil |https://github.com/lsbastos/3rd_imdc_procc_bb_model| PROCC| 
 | DS-OKSTATE-26 | Oklahoma State University | United States |https://github.com/haridas-das/DS-OKSTATE-2026| DS-OKSTATE| 
 | NUS CERM| National University of Singapore | Singapore |https://github.com/SungmokJung/3rd_imdc_nus_nus-cerm| NUS-CERM| 
 | AFYA| Afya | Brazil |https://github.com/Ricafya/3rd_imdc_afya_ric| AFYA| 
+| 4 Mosquiteiras|	Federal University of São Paulo (UNIFESP)	| Brazil	| https://mosqlimate.org/blaiate/3rd_imdc_-unifesp-_-4mosqueteiras- | UNIFESP | 
 
 ## Ranking
 
@@ -170,3 +171,7 @@ From the generated samples, we selected 100 samples and fitted the Richards mode
 The plots below show the histogram distributions of each estimated parameter for each validation period. The red dashed line indicates the observed value from the data. The parameters are shown starting from validation 2 because one validation period is required to estimate the (\rho) parameter used in the copula method.
 
 <img src="figures/hist_pars_41.png" width="1500">
+
+Bar plot of model parameters for a single state and validation set.
+
+<img src="figures/bar_pars_31_4.png" width="1500">
