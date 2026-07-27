@@ -38,7 +38,7 @@ This document presents the results for the **Mandatory Challenge (Dengue – Sta
 | Team | Institution | Country | Repository | Label in plots |
 |------|-------------|---------|------------|---------------|
 | Global Health Resilience (GHR) | Barcelona Supercomputing Center | Spain | https://github.com/dievillano/3rd_imdc_bsc_ghr | BSC |
-| Cornell-PEH | Cornell University | United States | https://mosqlimate.org/BentoLab-DiseaseDynamics/3rd_imdc_cornell_bentolab | CORNELL | 
+| Cornell-PEH | Cornell University | United States | hhttps://github.com/BentoLab-DiseaseDynamics/3rd_imdc_cornell_bentolab| CORNELL | 
 | LNCC ARP26 | Laboratório Nacional de Computação Científica | Brazil | https://github.com/pesquefGH/3rd_imdc_lncc_lncc_arp26_dengue | LNCC_ARP26 | 
 | LNCC SURGE | Laboratório Nacional de Computação Científica | Brazil |https://github.com/pesquefGH/3rd_imdc_lncc_surge_model26_dengue | LNCC_SURGE | 
 | LNCC CLIDENGO | Laboratório Nacional de Computação Científica | Brazil |https://github.com/americocunhajr/3rd_imdc_lncc_clidengo26dengue | LNCC_CLIDENGO | 
@@ -63,7 +63,7 @@ This document presents the results for the **Mandatory Challenge (Dengue – Sta
 | DS-OKSTATE-26 | Oklahoma State University | United States |https://github.com/haridas-das/DS-OKSTATE-2026| DS-OKSTATE| 
 | NUS CERM| National University of Singapore | Singapore |https://github.com/SungmokJung/3rd_imdc_nus_nus-cerm| NUS-CERM| 
 | AFYA| Afya | Brazil |https://github.com/Ricafya/3rd_imdc_afya_ric| AFYA| 
-| 4 Mosquiteiras|	Federal University of São Paulo (UNIFESP)	| Brazil	| https://mosqlimate.org/blaiate/3rd_imdc_-unifesp-_-4mosqueteiras- | UNIFESP | 
+| 4 Mosquiteiras|	Federal University of São Paulo (UNIFESP)	| Brazil	| https://github.com/blaiate/3rd_imdc_-unifesp-_-4mosqueteiras- | UNIFESP | 
 
 ## Ranking
 
@@ -75,7 +75,7 @@ $$R_v = \frac{\mathrm{WIS}_{\mathrm{model},v}}{\mathrm{WIS}_{\mathrm{baseline},v
 
 A value of ($R_v < 1$) indicates that the model outperformed the baseline, while ($R_v > 1$) indicates worse performance.
 
-To obtain a state-level ranking, we computed the geometric mean of (R_v) across the four validation periods for each model. Models were then ranked within each state according to this metric, with lower values indicating better predictive performance.
+To obtain a state-level ranking, we computed the geometric mean of ($R_v$) across the four validation periods for each model. Models were then ranked within each state according to this metric, with lower values indicating better predictive performance.
 
 
 ### Best-performing models per state
@@ -121,13 +121,29 @@ Filtering by the models with mean $R_v < 1$ by state we generated the following 
 
 <img src='figures/n_models_out_base_by_state.png' width="1000">
 
+Zoomed-in view of the states with only a few models outperforming the baseline (AM, PI, GO, and RR). The baseline model is shown in blue, models that outperform the baseline are highlighted according to the legend, and all other models are shown in gray. The black lines represent the observed data:
+
+<img src='figures/zoom_52_dengue_state.png' width="1000">
+<img src='figures/zoom_22_dengue_state.png' width="1000">
+<img src='figures/zoom_13_dengue_state.png' width="1000">
+<img src='figures/zoom_14_dengue_state.png' width="1000">
+
+
 The violin plots below show the distribution of the performance ratio ((R)) across all validation periods. This analysis can be performed using data from all states, as shown below,
 
 <img src="figures/ratio_models.png" width="1500">
 
 or restricted to a specific region, such as the Southeast:
 
+<img src="figures/ratio_models_South.png" width="1500">
+
 <img src="figures/ratio_models_Southeast.png" width="1500">
+
+<img src="figures/ratio_models_Midwest.png" width="1500">
+
+<img src="figures/ratio_models_Northeast.png" width="1500">
+
+<img src="figures/ratio_models_North.png" width="1500">
 
 ### Heatmap by region 
 

@@ -51,10 +51,10 @@ def sample_path(forecast_marginals, rho, random_state=None):
 # ----------------------------------------------------------------------
 # 5. Per-week marginals for ONE state, ordered by date.
 # ----------------------------------------------------------------------
-def build_marginals(F_marginals, uf, label='Forecast'):
+def build_marginals(F_marginals, col_region, region, label='Forecast'):
     # Filtro usando a sintaxe de indexação booleana do Pandas
     df = F_marginals[
-        (F_marginals['adm_1'] == uf) & 
+        (F_marginals[col_region] == region) & 
         (F_marginals['validation'] == label)
     ]
     
