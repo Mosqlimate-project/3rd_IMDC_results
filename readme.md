@@ -217,7 +217,7 @@ The figure below summarizes the estimated epidemic characteristics for Paraná (
 <img src="figures/hist_pars_41.png" width="1500">
 
 
-The results above correspond to Paraná (PR). Equivalent visualizations for all other Brazilian states are available in the [Supplementary Material - time series](figures/sup_mat_dengue_state.md).
+The results above correspond to Paraná (PR). Equivalent visualizations for all other Brazilian states are available in the [Supplementary Material](figures/sup_mat_dengue_state.md).
 
 ## References 
 
