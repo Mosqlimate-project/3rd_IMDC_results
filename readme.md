@@ -33,6 +33,8 @@ This document presents the results for the **Mandatory Challenge (Dengue – Sta
 * `optional_challenge_2.md` – Chikungunya (State Level)
 * `optional_challenge_3.md` – Chikungunya (City Level)
 
+
+# Results - Mandatory challenge: Dengue State level 
 ## Teams and models 
 
 | Team | Institution | Country | Repository | Label in plots |
@@ -65,33 +67,116 @@ This document presents the results for the **Mandatory Challenge (Dengue – Sta
 | AFYA| Afya | Brazil |https://github.com/Ricafya/3rd_imdc_afya_ric| AFYA| 
 | 4 Mosquiteiras|	Federal University of São Paulo (UNIFESP)	| Brazil	| https://github.com/blaiate/3rd_imdc_-unifesp-_-4mosqueteiras- | UNIFESP | 
 
-## Ranking
+## Ranking and Scoring 
 
-To rank the models, we computed the ratio between each model's Weighted Interval Score (WIS) and the WIS of a baseline model. As the baseline, we used the **BB** model, which is described in the following publication: https://www.sciencedirect.com/science/article/pii/S2468042725000739.
+Model performance was evaluated using the **Weighted Interval Score (WIS)**, a proper scoring rule for probabilistic forecasts. To facilitate comparisons across models and states, we expressed the performance of each model relative to a baseline forecast by computing the ratio between its WIS and the WIS of a baseline model.
 
-For each validation period ($v$), the ratio was calculated as
+The baseline model adopted in this study was **PROCC (BB)** model, as described in Freitas et al. (2025). For each validation period (v), the relative performance was computed as
 
-$$R_v = \frac{\mathrm{WIS}_{\mathrm{model},v}}{\mathrm{WIS}_{\mathrm{baseline},v}}.$$
+$$ R_v = \frac{\mathrm{WIS}{\mathrm{model},v}}{\mathrm{WIS}{\mathrm{baseline},v}}.$$
 
-A value of ($R_v < 1$) indicates that the model outperformed the baseline, while ($R_v > 1$) indicates worse performance.
+Values of **($R_v$ < 1)** indicate that the model **outperformed** the baseline, whereas values of **($R_v$ > 1)** indicate **inferior predictive performance**.
 
-To obtain a state-level ranking, we computed the geometric mean of ($R_v$) across the four validation periods for each model. Models were then ranked within each state according to this metric, with lower values indicating better predictive performance.
+To summarize model performance across the four validation periods, we computed the **geometric mean** of ($R_v$) for each model within each state. Models were then ranked independently for each state according to this aggregated score, with lower values indicating better overall predictive performance.
 
+The Weighted Interval Score was computed as
+
+$$\mathrm{WIS}(F, y) =
+\frac{1}{K + \tfrac{1}{2}}
+\left(
+w_0 |y - m|
++
+\sum_{k=1}^{K}
+w_k
+S_{\alpha_k}^{\mathrm{int}}(l_k, u_k; y)
+\right),$$
+
+where ($y$) is the observed value, ($m$) is the predictive median, ($K$) is the number of prediction intervals, and ($l_k$) and ($u_k$) denote the lower and upper bounds of the (k)-th prediction interval with nominal level ($1-\alpha_k$), respectively. The interval weights are defined as ($w_k = \alpha_k/2$), while the median receives weight ($w_0 = 1/2$).
+
+## Overall model performance relative to the baseline
+
+### Scatter plot 
+
+The figure below presents a scatter plot summarizing the overall performance of all submitted models across all states and validation periods. For each model, the (x)-axis represents the mean of ($\log(R_v)$), which is equivalent to the logarithm of the geometric mean of ($R_v$). The (y)-axis represents the standard deviation of ($\log(R_v)$), providing a measure of the variability of the model's relative performance across states and validation periods.
+
+This visualization allows models to be classified into four performance regions:
+
+* **Stable (green):** Models with a mean ($\log(R_v) < 0$), indicating that they outperform the baseline on average, and a standard deviation of ($\log(R_v)$) below the median, indicating relatively consistent performance across states and validation periods.
+
+* **Better than the baseline, but inconsistent (blue):** Models with a mean ($\log(R_v) < 0$), indicating better average performance than the baseline, but with a standard deviation of ($\log(R_v)$) above the median, suggesting substantial variability in performance across states or validation periods.
+
+* **Unstable (yellow):** Models with a mean ($\log(R_v) > 0$), indicating worse average performance than the baseline, and a standard deviation of ($\log(R_v)$) above the median, reflecting inconsistent performance across states or validation periods.
+
+* **Consistently worse than the baseline (red):** Models with a mean ($\log(R_v) > 0$), indicating worse average performance than the baseline, and a standard deviation of ($\log(R_v)$) below the median, indicating consistently poor performance.
+
+To improve readability, only models located in the **Stable** region are highlighted using distinct colors, as indicated in the legend. All remaining models are shown in gray.
+
+
+![](figures/scatter_stable_dengue_state.png)
+
+### Violin plots 
+In addition to the scatter plot, we generated violin plots to further characterize the distribution of ($R_v$) values across all models. The plots were produced using data from all Brazilian states combined as well as separately for each of the country's macro-regions.
+
+These visualizations provide a more detailed view of the variability and central tendency of each model's relative performance. Models with a median ($R_v < 1$), indicating better median performance than the baseline, are shown in **green**. Models with a median ($R_v \geq 1$), indicating performance equal to or worse than the baseline, are shown in **blue**.
+
+![](figures/violin_dengue_state.png)
+
+![](figures/violin_South_dengue_state.png)
+
+![](figures/violin_Southeast_dengue_state.png)
+
+![](figures/violin_Midwest_dengue_state.png)
+
+![](figures/violin_Northeast_dengue_state.png)
+
+![](figures/violin_North_dengue_state.png)
+
+## State performance 
+
+### Heatmaps
+To visualize model performance across states, we created the heatmap shown below. In this figure, each row represents a Brazilian state and each column represents a forecasting model. Each cell displays the geometric mean of (R_v) across the four validation periods for the corresponding state-model combination.
+
+Cells are colored according to the model's relative performance: **green** indicates a geometric mean of (R_v < 0.95), corresponding to performance substantially better than the baseline; **white** indicates values between 0.95 and 1.05, corresponding to performance comparable to the baseline; and **red** indicates values greater than 1.05, corresponding to performance worse than the baseline.
+
+Models are ordered from left to right according to the number of green cells, with the best-performing models appearing first. States are grouped by Brazilian macro-region to facilitate regional comparisons and highlight geographical patterns in model performance.
+
+![](figures/matrix_BR.png)
+
+The value of this metric for each state and model is presented in this additional file [Supplementary Material](figures/sup_mat_dengue_state.md). 
+
+
+As a complement to the heatmaps, we generated the figures below, considering only models with a geometric mean of ($R_v < 1$) for each state.
+
+The first figure shows the number of states in which each model outperformed the baseline, providing an overall measure of model robustness across Brazil.
+
+<img src="figures/n_states_out_base_by_model.png" width="1000">
+
+The second figure shows, for each state, the number of models that outperformed the baseline. This visualization helps identify states where accurate forecasting was more challenging, as indicated by a smaller number of models surpassing the baseline.
+
+<img src="figures/n_models_out_base_by_state.png" width="1000">
+
+Based on these results, we selected **Amazonas (AM)** and **Goiás (GO)** for a more detailed analysis, as they were among the states with the fewest models outperforming the baseline. The figures below compare the observed epidemic curves (black lines) with forecasts from the baseline model and the models that achieved better performance than the baseline. These models are highlighted using distinct colors, while all remaining models are shown in gray.
+
+<img src="figures/zoom_13_dengue_state.png" width="1000">
+
+<img src="figures/zoom_52_dengue_state.png" width="1000">
+
+The figure above are available for the other states
+in this additional file [Supplementary Material](figures/sup_mat_dengue_state.md).
 
 ### Best-performing models per state
 
-
-The bar plot below shows the number of states in which each model achieved the highest rank.
+The bar chart below shows the number of Brazilian states in which each model achieved the highest overall ranking, based on the geometric mean of the relative Weighted Interval Score ($R_v$) across the four validation periods.
 
 ![Best models by state](./figures/count_best_models_state.png)
 
-The map below displays the top-ranked model for each state. States are colored according to the model that achieved the best ranking.
+The map below illustrates the best-performing model in each state. States are colored according to the model that obtained the highest ranking, providing an overview of the geographical distribution of model performance across Brazil.
 
 ![Map best models by state](./figures/map_best_model.png)
 
-The figures below present, for each region, the three highest-ranked models based on their performance in each state (using $\text{WIS}^{\text{norm}}$).
-
 ### Medal board 
+
+The figures below summarize the top three models in each Brazilian macro-region. For every state, models were ranked according to the geometric mean of ($R_v$). 
 #### South region: 
 
 <img src="figures/medals_south.png" width="500">
@@ -113,81 +198,29 @@ The figures below present, for each region, the three highest-ranked models base
 <img src="figures/medals_north.png" width="1000">
 
 
-### Overall model performance 
-
-Filtering by the models with mean $R_v < 1$ by state we generated the following plots: 
-
-<img src="figures/n_states_out_base_by_model.png" width="1000">
-
-<img src='figures/n_models_out_base_by_state.png' width="1000">
-
-Zoomed-in view of the states with only a few models outperforming the baseline (AM, PI, GO, and RR). The baseline model is shown in blue, models that outperform the baseline are highlighted according to the legend, and all other models are shown in gray. The black lines represent the observed data:
-
-<img src='figures/zoom_52_dengue_state.png' width="1000">
-<img src='figures/zoom_22_dengue_state.png' width="1000">
-<img src='figures/zoom_13_dengue_state.png' width="1000">
-<img src='figures/zoom_14_dengue_state.png' width="1000">
-
-
-The violin plots below show the distribution of the performance ratio ((R)) across all validation periods. This analysis can be performed using data from all states, as shown below,
-
-<img src="figures/ratio_models.png" width="1500">
-
-or restricted to a specific region, such as the Southeast:
-
-<img src="figures/ratio_models_South.png" width="1500">
-
-<img src="figures/ratio_models_Southeast.png" width="1500">
-
-<img src="figures/ratio_models_Midwest.png" width="1500">
-
-<img src="figures/ratio_models_Northeast.png" width="1500">
-
-<img src="figures/ratio_models_North.png" width="1500">
-
-### Heatmap by region 
-
-The figures below show the mean performance ratio for each state, grouped by Brazilian region.
-
-#### South region: 
-
-<img src="figures/heatmap_south.png" width="1500">
-
-#### Southeast region: 
-
-<img src="figures/heatmap_southeast.png" width="1500">
-
-#### Midwest region: 
-
-<img src="figures/heatmap_midwest.png" width="1500">
-
-#### Northeast region: 
-
-<img src="figures/heatmap_northeast.png" width="1500">
-
-#### North region: 
-
-<img src="figures/heatmap_north.png" width="1500">
-
-
 ## Performance by state - all validations 
 
-To complement the analysis above, the following plots can be used to show the model performance across validation sets. The validation set is displayed on the y-axis, while either the ranking or the performance ratio for each validation period is shown on the x-axis. Each colored line represents a different model, allowing for a comparison of their performance consistency across validation periods.
+To complement the overall analysis, the figures below illustrate model performance across the individual validation periods. In these plots, the y-axis represents the validation periods, while the x-axis displays the model ranking for each validation period. Each colored line corresponds to a different forecasting model, making it possible to assess the consistency of model performance over time and identify models whose rankings or relative performance vary substantially between validation periods.
 
-<img src="figures/rankplot_41_rank.png" width="1500">
+<img src="figures/rankplot_52_rank_dengue_state.png" width="1500">
 
-<img src="figures/rankplot_41_wis_ratio.png" width="1500">
+The figure above presents the results for Goiás (GO). Equivalent visualizations for all other Brazilian states are provided in the [Supplementary Material](figures/sup_mat_dengue_state.md).
 
-## New metrics 
+## Epidemic characteristics
 
-Additionally, using the copula-based method described below, we transformed each model forecast into log-normal distribution parameters. We then generated 1,000 samples from these distributions and computed the total number of cases and the maximum number of cases, including their corresponding confidence intervals.
+Additionally, using the copula-based approach described below, we transformed each model forecast into the parameters of a log-normal distribution. From these distributions, we generated 1,000 samples for each forecast and estimated four epidemic characteristics: the total number of cases, the maximum weekly number of cases (peak intensity), the peak week, and the epidemic onset week, together with their corresponding confidence intervals. The peak week and epidemic onset week were estimated by fitting a Richards growth model to the sampled trajectories, following the methodology proposed by Araujo et al. (2025).
 
-From the generated samples, we selected 100 samples and fitted the Richards model to estimate the peak week.
+The figures below present the distributions of the estimated epidemic characteristics for each validation period and forecasting model. In each histogram, the red dashed line indicates the observed value, while the blue bars represent the median estimate produced by each model. Results are shown beginning with Validation 2, as estimation of the copula parameter (\rho) requires information from the preceding validation period.
 
-The plots below show the histogram distributions of each estimated parameter for each validation period. The red dashed line indicates the observed value from the data. The parameters are shown starting from validation 2 because one validation period is required to estimate the (\rho) parameter used in the copula method.
+The figure below summarizes the estimated epidemic characteristics for Paraná (PR).
 
 <img src="figures/hist_pars_41.png" width="1500">
 
-Bar plot of model parameters for a single state and validation set.
 
-<img src="figures/bar_pars_31_4.png" width="1500">
+The results above correspond to Paraná (PR). Equivalent visualizations for all other Brazilian states are available in the [Supplementary Material - time series](figures/sup_mat_dengue_state.md).
+
+## References 
+
+Freitas, Laís Picinini, et al. "A statistical model for forecasting probabilistic epidemic bands for dengue cases in Brazil." Infectious Disease Modelling (2025).
+
+Araujo, Eduardo C., et al. "Large-scale epidemiological modelling: scanning for mosquito-borne diseases spatio-temporal patterns in Brazil." Royal Society Open Science 12.5 (2025): 1-13.

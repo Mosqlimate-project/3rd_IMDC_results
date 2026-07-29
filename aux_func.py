@@ -53,6 +53,37 @@ rename_models = {'3rd_imdc_isi_isi-dengue': 'ISI',
                                 '3rd_imdc_lncc_clidengo26chikungunya':'LNCC_CLIDENGO',
                                 '3rd_imdc_lncc_surge_model26_chikungunya':'LNCC_SURGE'} 
 
+
+color_palette = {'UNIFESP': '#d60000',
+ 'AFYA': '#8c3bff',
+ 'BSC': '#018700',
+ 'CERI': '#00acc6',
+ 'CORNELL': '#97ff00',
+ 'EMAP_PROPHET': '#ff7ed1',
+ 'EMAP_SARIMAX': '#6b004f',
+ 'EMAP_LSTM': '#ffa52f',
+ 'EMAP_XGB': '#573b00',
+ 'EMAP_BLUE': '#005659',
+ 'EMAP_SAKHAL': '#0000dd',
+ 'FIOCRUZ_MARD': '#00fdcf',
+ 'FIOCRUZ_ZEROLAGS': '#a17569',
+ 'IFGW': '#bcb6ff',
+ 'ISI': '#95b577',
+ 'LNCC_CLIDENGO': '#bf03b8',
+ 'LNCC_ARP26': '#645474',
+ 'LNCC_SURGE': '#790000',
+ 'NUS-CERM': '#0774d8',
+ 'PROCC': '#fdf490',
+ 'PUCRIO': '#004b00',
+ 'PURDUE': '#8e7900',
+ 'RKI_PH': '#ff7266',
+ 'RKI_LSTM': '#edb8b8',
+ 'UNESP': '#5d7e66',
+ 'UNI_DEL_VALLE': '#9ae4ff',
+ 'DS-OKSTATE': '#eb0077'}
+
+## Plots Best models by state: 
+
 estado_para_regiao = {est: reg for reg, estados in regioes.items() for est in estados}
 
 
