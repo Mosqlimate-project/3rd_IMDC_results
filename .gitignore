@@ -1,7 +1,7 @@
 # ==========================================
 # GITIGNORE PADRÃO PARA PROJETOS PYTHON
 # ==========================================
-
+.env
 samples/
 
 # Arquivos compilados / otimizados / DLLs do Python
