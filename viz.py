@@ -81,7 +81,7 @@ def plot_rankplot(
     x_col,
     x_label,
     title,
-    state=41,
+    region=41,
     validation_ticks=[1, 2, 3, 4],
     figsize=(18, 7),
     x_ticks=None,
@@ -89,10 +89,11 @@ def plot_rankplot(
     ncols_legend=6,
     bbox_to_anchor=(0.5, -0.25), 
     challenge = 'dengue',
-    code_to_state = None
+    region_col = 'adm_1',
+    region_name = None
 ):
     
-    df = df.loc[df.adm_1 == state]
+    df = df.loc[df[region_col] == region]
 
     models = df.model.unique()
 
@@ -129,12 +130,12 @@ def plot_rankplot(
         ncols=ncols_legend,
     )
 
-    if state is not None:
-        title = f"{title} in state: {code_to_state[state]}"
+    if region_name is not None:
+        title = f"{title} in state: {region_name}"
 
     ax.set_title(title)
 
-    plt.savefig(f'figures/rankplot_{state}_{x_col}_{challenge}.png', dpi = 400, bbox_inches = 'tight')
+    plt.savefig(f'figures/rankplot_{region}_{x_col}_{challenge}.png', dpi = 400, bbox_inches = 'tight')
     
     plt.show()
 
@@ -151,7 +152,8 @@ def plot_zoom_state(
     model_base="PROCC",
     figsize=(10, 5),
     savepath=None,
-    loc_legend = 'upper left'
+    loc_legend = 'upper left',
+    disease = 'dengue'
 ):
     """
     Plot dengue observations and model predictions for one state,
@@ -171,7 +173,7 @@ def plot_zoom_state(
 
     best_models = (
         df_summary.loc[
-            (df_summary.adm_1 == state)
+            (df_summary.adm_1 == code_to_state[state])
             & (df_summary.geometric_mean_ratio < 1),
             "model",
         ]
@@ -270,7 +272,8 @@ def plot_zoom_state(
 
     ax.set_xlim(zoom_start, zoom_end)
     ax.set_ylabel("Weekly cases")
-    ax.set_title(f"Dengue cases and predictions — {code_to_state[state]}")
+
+    ax.set_title(f"{disease.capitalize()} cases and predictions — {code_to_state[state]}")
 
     ax.grid(alpha=0.3)
 
@@ -324,6 +327,194 @@ def plot_zoom_state(
     return fig, ax
 
 
+def plot_zoom_city(
+    city,
+    df_dengue,
+    df_preds,
+    df_summary,
+    city_name,
+    color_palette,
+    zoom_start,
+    zoom_end,
+    model_base="PROCC",
+    figsize=(10, 5),
+    savepath=None,
+    loc_legend = 'upper left',
+    disease = 'dengue'
+):
+    """
+    Plot dengue observations and model predictions for one state,
+    with an inset showing the complete historical series.
+    """
+
+    # -------------------------------------------------------------------------
+    # Data
+    # -------------------------------------------------------------------------
+
+    df_dengue_st = df_dengue.query("adm_2 == @city").copy()
+    df_preds_st = df_preds.query("adm_2 == @city").copy()
+
+    df_zoom = df_dengue_st.query(
+        "@zoom_start <= date <= @zoom_end"
+    )
+
+    best_models = (
+        df_summary.loc[
+            (df_summary.adm_2 == city)
+            & (df_summary.geometric_mean_ratio < 1),
+            "model",
+        ]
+        .tolist()
+    )
+
+    # -------------------------------------------------------------------------
+    # Figure
+    # -------------------------------------------------------------------------
+
+    fig, ax = plt.subplots(figsize=figsize)
+
+    axins = inset_axes(
+        ax,
+        width="32%",
+        height="40%",
+        loc="upper right",
+        borderpad=1,
+    )
+
+    # -------------------------------------------------------------------------
+    # Observations
+    # -------------------------------------------------------------------------
+
+    for axis, data in zip([ax, axins], [df_zoom, df_dengue_st]):
+
+        axis.plot(
+            data.date,
+            data.casos,
+            color="black",
+            marker=".",
+            linewidth=1.5,
+            zorder=1,
+            label="Observed" if axis is ax else None,
+        )
+
+    # -------------------------------------------------------------------------
+    # Predictions
+    # -------------------------------------------------------------------------
+
+    for model, df_model in df_preds_st.groupby("model"):
+
+        df_model = df_model.sort_values("date")
+
+        if model == model_base:
+
+            color = color_palette[model]
+            alpha = 1
+            lw = 2
+            label = "Baseline"
+
+        elif model in best_models:
+
+            color = color_palette[model]
+            alpha = 1
+            lw = 2
+            label = model
+
+        else:
+
+            color = "0.7"
+            alpha = 0.3
+            lw = 1
+            label = None
+
+        for axis in [ax, axins]:
+
+            axis.plot(
+                df_model.date,
+                df_model.pred,
+                color=color,
+                alpha=alpha,
+                linewidth=lw,
+                label=label,
+                zorder=5,
+            )
+
+    # -------------------------------------------------------------------------
+    # Rectangle indicating zoom
+    # -------------------------------------------------------------------------
+
+    rect = Rectangle(
+        (mdates.date2num(zoom_start), 0),
+        mdates.date2num(zoom_end) - mdates.date2num(zoom_start),
+        df_dengue_st.casos.max() * 1.05,
+        facecolor="none",
+        edgecolor="red",
+        linewidth=1.2,
+    )
+
+    axins.add_patch(rect)
+
+    # -------------------------------------------------------------------------
+    # Formatting
+    # -------------------------------------------------------------------------
+
+    ax.set_xlim(zoom_start, zoom_end)
+    ax.set_ylabel("Weekly cases")
+
+    ax.set_title(f"{disease.capitalize()} cases and predictions — {city_name}")
+
+    ax.grid(alpha=0.3)
+
+    ax.xaxis.set_major_locator(mdates.YearLocator())
+    ax.xaxis.set_major_formatter(mdates.DateFormatter("%Y"))
+
+    axins.set_xlim(
+        df_dengue_st.date.min(),
+        df_dengue_st.date.max() + pd.Timedelta(weeks=20),
+    )
+
+    axins.set_ylim(
+        0,
+        df_dengue_st.casos.max() * 1.05,
+    )
+
+    axins.tick_params(axis="x", rotation=45, labelsize=7)
+    axins.tick_params(axis="y", labelsize=7)
+
+    handles, labels = ax.get_legend_handles_labels()
+
+    n = len(labels)
+
+    fontsize = 10          # tamanho padrão
+    x_outside = 4         # acima disso coloca fora
+    x_two_cols = 16       # acima disso usa duas colunas
+
+    kwargs = {
+        "fontsize": fontsize,
+        "frameon": False,
+    }
+
+    if n > x_outside:
+        kwargs.update({
+            "loc": "center left",
+            "bbox_to_anchor": (1.02, 0.5),  # fora do gráfico
+        })
+    else:
+        kwargs.update({
+            "loc": loc_legend,
+        })
+
+    if n > x_two_cols:
+        kwargs["ncol"] = 2
+
+    ax.legend(handles, labels, **kwargs)
+
+    if savepath is not None:
+        plt.savefig(savepath, dpi=300, bbox_inches="tight")
+
+    return fig, ax
+
+
+
 def style_cells(val, 
                 cell_colors = color_palette):
     """background das células de dados (mantém texto em negrito)."""
@@ -370,14 +561,15 @@ def plot_medal_board(ranked_models, index = ["GOLD", "SILVER", "BRONZE"]):
     return styler
 
 
-
 def plot_geometric_ratio_heatmap(
     df_summary,
-    code_to_state,
-    states,
+    regions,
     label,
     figsize=(25, 5),
-    challenge = None
+    challenge = None,
+    col = 'adm_1',
+    ylabel = 'State',
+    rotation = 60
 ):
     """
     Plot a heatmap of the geometric mean ratio by state and model.
@@ -398,19 +590,28 @@ def plot_geometric_ratio_heatmap(
     """
 
     df = df_summary.copy()
-    df["state"] = df["adm_1"].replace(code_to_state)
 
     df_pivot = (
-        df.loc[df["adm_1"] != 32]
-        .pivot(index="state", columns="model", values="geometric_mean_ratio")
-        .loc[states]
+        df.loc[df[col] != 'ES']
+        .pivot(index=col, columns="model", values="geometric_mean_ratio")
+        .loc[regions]
     )
 
-    norm = TwoSlopeNorm(
-        vmin=df_pivot.values.min(),
-        vcenter=1,
-        vmax=max(2, df_pivot.values.max()),
-    )
+    try: 
+
+        norm = TwoSlopeNorm(
+            vmin=df_pivot.values.min(),
+            vcenter=1,
+            vmax=min(2, df_pivot.values.max()),
+        )
+
+    except: 
+        norm = TwoSlopeNorm(
+            vmin=0.5,
+            vcenter=1,
+            vmax=min(2, df_pivot.values.max()),
+        )
+
 
     fig, ax = plt.subplots(figsize=figsize)
 
@@ -448,12 +649,12 @@ def plot_geometric_ratio_heatmap(
     #plt.colorbar(im, ax=ax, label="E_model / E_baseline")
 
     ax.set_xlabel("Model")
-    ax.set_ylabel("State")
+    ax.set_ylabel(ylabel)
     ax.set_title(
         "Geometric mean of the ratio (E_model/E_baseline) across the four validation sets"
     )
 
-    plt.setp(ax.get_xticklabels(), rotation=60, ha="right")
+    plt.setp(ax.get_xticklabels(), rotation=rotation, ha="right")
 
     fig.tight_layout()
 
@@ -463,41 +664,51 @@ def plot_geometric_ratio_heatmap(
 
 def plot_matrix(
     df_summary,
-    code_to_state,
-    states,
+    regions,
     figsize=(25, 5),
-    challenge = None
+    challenge=None,
+    transpose=False,
+    col = 'adm_1',
+    xlabel = 'State',
+    rotation = 60, 
+    region_sep = True, 
 ):
     """
     Plot a categorical heatmap of the geometric mean ratio by state and model.
 
-    Colors:
-        Green : ratio < 0.95
-        White : 0.95 <= ratio <= 1.05
-        Red   : ratio > 1.05
+    Parameters
+    ----------
+    transpose : bool, default=False
+        False -> rows = states, columns = models
+        True  -> rows = models, columns = states
     """
 
     df = df_summary.copy()
-    df["state"] = df["adm_1"].replace(code_to_state)
+
+    # ------------------------------------------------------------------
+    # Pivot
+    # ------------------------------------------------------------------
 
     df_pivot = (
-        df.loc[df["adm_1"] != 32]
-        .pivot(index="state", columns="model", values="geometric_mean_ratio")
-        .loc[states]
+        df.loc[df[col] != 32]
+        .pivot(index=col, columns="model", values="geometric_mean_ratio")
+        .loc[regions]
     )
 
     # ------------------------------------------------------------------
-    # Ordenação dos modelos
+    # Model ordering
     # ------------------------------------------------------------------
-    ranking = pd.DataFrame({
-        "green": (df_pivot < 0.95).sum(axis=0),
-        "red": (df_pivot > 1.05).sum(axis=0),
-        "mean_ratio": df_pivot.mean(axis=0),
-    })
+
+    ranking = pd.DataFrame(
+        {
+            "green": (df_pivot < 0.95).sum(axis=0),
+            "red": (df_pivot > 1.05).sum(axis=0),
+            "mean_ratio": df_pivot.mean(axis=0),
+        }
+    )
 
     order = (
-        ranking
-        .sort_values(
+        ranking.sort_values(
             by=["green", "red", "mean_ratio"],
             ascending=[False, True, True],
         )
@@ -506,11 +717,23 @@ def plot_matrix(
 
     df_pivot = df_pivot[order]
 
-    # Categoriza as células
+    # ------------------------------------------------------------------
+    # Transpose (optional)
+    # ------------------------------------------------------------------
+
+    if transpose:
+        df_plot = df_pivot.T
+    else:
+        df_plot = df_pivot
+
+    # ------------------------------------------------------------------
+    # Categorize
+    # ------------------------------------------------------------------
+
     df_colors = np.where(
-        df_pivot.values < 0.95,
+        df_plot.values < 0.95,
         -1,
-        np.where(df_pivot.values > 1.05, 1, 0),
+        np.where(df_plot.values > 1.05, 1, 0),
     )
 
     cmap = ListedColormap(["#66bd63", "white", "#d73027"])
@@ -522,56 +745,125 @@ def plot_matrix(
         cmap=cmap,
         vmin=-1,
         vmax=1,
-        aspect=0.5,
+        aspect="auto",
     )
 
-    # Ticks
-    ax.set_xticks(np.arange(df_pivot.shape[1]))
-    ax.set_yticks(np.arange(df_pivot.shape[0]))
+    # ------------------------------------------------------------------
+    # Axis ticks
+    # ------------------------------------------------------------------
 
-    ax.set_xticklabels([
-        fill(col.replace("_", " "), width=18).replace(" ", "\n")
-        for col in df_pivot.columns
-    ])
-    ax.set_yticklabels(df_pivot.index)
+    ax.set_xticks(np.arange(df_plot.shape[1]))
+    ax.set_yticks(np.arange(df_plot.shape[0]))
 
-    ax.set_xlabel("Model")
-    ax.set_ylabel("State")
+    if transpose:
+
+        ax.set_xticklabels(df_plot.columns)
+
+        ax.set_yticklabels([
+            fill(model.replace("_", " "), width=18).replace(" ", "\n")
+            for model in df_plot.index
+        ])
+
+        ax.set_xlabel(xlabel)
+        ax.set_ylabel("Model")
+
+        plt.setp(
+            ax.get_xticklabels(),
+            rotation=0,
+            ha="center",
+        )
+
+    else:
+
+        ax.set_xticklabels([
+            fill(model.replace("_", " "), width=18).replace(" ", "\n")
+            for model in df_plot.columns
+        ])
+
+        ax.set_yticklabels(df_plot.index)
+
+        ax.set_xlabel("Model")
+        ax.set_ylabel(xlabel)
+
+        plt.setp(
+            ax.get_xticklabels(),
+            rotation=rotation,
+            ha="right",
+        )
+
+    # ------------------------------------------------------------------
+    # Title
+    # ------------------------------------------------------------------
 
     ax.set_title(
         "Geometric mean ratio (Model / Baseline)\n"
-        "Columns ordered by: more green cells. "
-        "Green: < 0.95 | White: 0.95-1.05 | Red: > 1.05"
+        "Green: <0.95   White: 0.95–1.05   Red: >1.05"
     )
 
-    # Divisões entre regiões
-    region_breaks = [3, 6, 10, 19]
+    # ------------------------------------------------------------------
+    # Region separators
+    # ------------------------------------------------------------------
+    if region_sep: 
+        region_breaks = [3, 6, 10, 19]
 
-    for y in region_breaks:
-        ax.axhline(
-            y - 0.5,
-            color="black",
-            linewidth=2.5,
-        )
+        if transpose:
 
+            for x in region_breaks:
+                ax.axvline(
+                    x - 0.5,
+                    color="black",
+                    linewidth=2.5,
+                )
+
+        else:
+
+            for y in region_breaks:
+                ax.axhline(
+                    y - 0.5,
+                    color="black",
+                    linewidth=2.5,
+                )
+
+    # ------------------------------------------------------------------
     # Grid
-    ax.set_xticks(np.arange(-0.5, df_pivot.shape[1], 1), minor=True)
-    ax.set_yticks(np.arange(-0.5, df_pivot.shape[0], 1), minor=True)
+    # ------------------------------------------------------------------
 
-    ax.grid(which="minor", color="gray", linestyle="-", linewidth=0.5)
-    ax.tick_params(which="minor", bottom=False, left=False)
+    ax.set_xticks(
+        np.arange(-0.5, df_plot.shape[1], 1),
+        minor=True,
+    )
 
-    plt.setp(ax.get_xticklabels(), rotation=60, ha="right")
+    ax.set_yticks(
+        np.arange(-0.5, df_plot.shape[0], 1),
+        minor=True,
+    )
+
+    ax.grid(
+        which="minor",
+        color="gray",
+        linestyle="-",
+        linewidth=0.5,
+    )
+
+    ax.tick_params(
+        which="minor",
+        bottom=False,
+        left=False,
+    )
 
     fig.tight_layout()
 
-    fig.savefig(
-        f"figures/matrix_BR_{challenge}.png",
-        dpi=300,
-        bbox_inches="tight",
-    )
+    if challenge is not None:
 
-    return ranking.loc[order]
+        suffix = "_T" if transpose else ""
+
+        fig.savefig(
+            f"figures/matrix_BR_{challenge}{suffix}.png",
+            dpi=300,
+            bbox_inches="tight",
+        )
+
+    return fig, ax, ranking.loc[order]
 
 def plot_violin(df_rank, region = None, challenge = None): 
 
@@ -742,7 +1034,7 @@ def plot_swarmplot(df_rank, region = None):
     return fig, ax 
 
 
-def plot_parameters(ax, df_true_params, df_pars, state, val, column = 'peak_week', title = ''): 
+def plot_parameters(ax, df_true_params, df_pars, region, val, column = 'peak_week', title = '', col_region = 'state'): 
 
     if column == 'peak_week': 
         label = 'pico_dist_p50'
@@ -756,9 +1048,9 @@ def plot_parameters(ax, df_true_params, df_pars, state, val, column = 'peak_week
     elif column == 't_ini':
         label = 't_ini_dist_p50'
 
-    df_true_ = df_true_params.loc[(df_true_params.state == state) & (df_true_params.validation == val)]
+    df_true_ = df_true_params.loc[(df_true_params[col_region]== region) & (df_true_params.validation == val)]
 
-    df_pars_ = df_pars.loc[(df_pars.state == state) & (df_pars.validation == val )]
+    df_pars_ = df_pars.loc[(df_pars[col_region] == region) & (df_pars.validation == val )]
 
     ax.hist(df_pars_[label])
     ax.axvline(df_true_[column].values[0], color = 'red', linestyle = '--', label= 'Observed')
@@ -769,8 +1061,7 @@ def plot_parameters(ax, df_true_params, df_pars, state, val, column = 'peak_week
 def plot_parameter_histograms(
     df_true_params,
     df_pars,
-    state,
-    code_to_state,
+    region,
     validations=(2, 3, 4),
     parameters=(
         ("peak_week", "Peak week"),
@@ -779,6 +1070,8 @@ def plot_parameter_histograms(
         ("t_ini", 'Ini week')
     ),
     figsize=(16, 8),
+    label_title = '',
+    col_region = 'state'
 ):
     """
     Plot histograms comparing estimated and true parameters for multiple
@@ -821,13 +1114,14 @@ def plot_parameter_histograms(
                 ax=ax[i, j],
                 df_true_params=df_true_params,
                 df_pars=df_pars,
-                state=state,
+                region=region,
                 val=val,
                 column=column,
                 title=title if i == 0 else "",
+                col_region = col_region
             )
 
-    fig.suptitle(f"Histograms of Parameters - {code_to_state[state]}", y = 0.92)
+    fig.suptitle(f"Histograms of Parameters - {label_title}", y = 0.92)
     fig.tight_layout(rect=[0, 0, 1, 0.96])
 
     return fig, ax
@@ -985,10 +1279,10 @@ def plot_model_scatter(
 
     # Quadrant labels
     labels = [
-        (-0.15, median_std / 2,
+        (xlim[0]/2, median_std / 2,
          "Stable", "darkgreen"),
 
-        (-0.15, (median_std + ymax) / 2,
+        (xlim[0]/2, (median_std + ymax) / 2,
          "Better than baseline,\nbut inconsistent", "steelblue"),
 
         (0.5, (median_std + ymax) / 2,

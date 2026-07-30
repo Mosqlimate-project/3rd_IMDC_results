@@ -16,8 +16,7 @@ The challenge involves four validation tests and one forecast target. The period
 
 **Forecast.** Predict the weekly number of dengue cases in Brazil, and by state (UF), in the 2026-2027 season \[EW 41 2026- EW40 2027\], using data covering the period from EW 01 2010 to EW 25 2026;
 
-
-This year, the competition included four forecasting challenges:
+The challenge workflow, from data release to the generation of the ensemble models, was identical to that of the first edition, as described by Araujo et al. (2026). In addition, this year, the competition included four forecasting challenges:
 
 * **Mandatory Challenge – Dengue (State Level)**: Forecast dengue cases at the state (UF) level for all Brazilian states, except Espírito Santo.
 
@@ -29,12 +28,12 @@ This year, the competition included four forecasting challenges:
 
 This document presents the results for the **Mandatory Challenge (Dengue – State Level)**. The results for the optional challenges are available in the following files:
 
-* `optional_challenge_1.md` – Dengue (City Level)
-* `optional_challenge_2.md` – Chikungunya (State Level)
-* `optional_challenge_3.md` – Chikungunya (City Level)
+* [Optional Challenge 1 - Dengue city](optional_challenge_1.md).
+* [Optional Challenge 2 - Chikungunya state](optional_challenge_2.md).
+* [Optional Challenge 3 - Chikungunya city](optional_challenge_3.md).
 
 
-# Results - Mandatory challenge: Dengue State level 
+# Results - Mandatory challenge: Dengue state level 
 ## Teams and models 
 
 | Team | Institution | Country | Repository | Label in plots |
@@ -149,11 +148,11 @@ As a complement to the heatmaps, we generated the figures below, considering onl
 
 The first figure shows the number of states in which each model outperformed the baseline, providing an overall measure of model robustness across Brazil.
 
-<img src="figures/n_states_out_base_by_model.png" width="1000">
+<img src="figures/n_states_out_base_by_model_dengue_state.png" width="1000">
 
 The second figure shows, for each state, the number of models that outperformed the baseline. This visualization helps identify states where accurate forecasting was more challenging, as indicated by a smaller number of models surpassing the baseline.
 
-<img src="figures/n_models_out_base_by_state.png" width="1000">
+<img src="figures/n_models_out_base_by_state_dengue_state.png" width="1000">
 
 Based on these results, we selected **Amazonas (AM)** and **Goiás (GO)** for a more detailed analysis, as they were among the states with the fewest models outperforming the baseline. The figures below compare the observed epidemic curves (black lines) with forecasts from the baseline model and the models that achieved better performance than the baseline. These models are highlighted using distinct colors, while all remaining models are shown in gray.
 
@@ -168,34 +167,34 @@ in this additional file [Supplementary Material](figures/sup_mat_dengue_state.md
 
 The bar chart below shows the number of Brazilian states in which each model achieved the highest overall ranking, based on the geometric mean of the relative Weighted Interval Score ($R_v$) across the four validation periods.
 
-![Best models by state](./figures/count_best_models_state.png)
+![Best models by state](./figures/count_best_models_dengue_state.png)
 
 The map below illustrates the best-performing model in each state. States are colored according to the model that obtained the highest ranking, providing an overview of the geographical distribution of model performance across Brazil.
 
-![Map best models by state](./figures/map_best_model.png)
+![Map best models by state](./figures/map_best_model_dengue_state.png)
 
 ### Medal board 
 
 The figures below summarize the top three models in each Brazilian macro-region. For every state, models were ranked according to the geometric mean of ($R_v$). 
 #### South region: 
 
-<img src="figures/medals_south.png" width="500">
+<img src="figures/medals_south_dengue_state.png" width="500">
 
 #### Southeast region: 
 
-<img src="figures/medals_southeast.png" width="500">
+<img src="figures/medals_southeast_dengue_state.png" width="500">
 
 #### Midwest region: 
 
-<img src="figures/medals_midwest.png" width="500">
+<img src="figures/medals_midwest_dengue_state.png" width="500">
 
 #### Northeast region: 
 
-<img src="figures/medals_northeast.png" width="1000">
+<img src="figures/medals_northeast_dengue_state.png" width="1000">
 
 #### North region: 
 
-<img src="figures/medals_north.png" width="1000">
+<img src="figures/medals_north_dengue_state.png" width="1000">
 
 
 ## Performance by state - all validations 
@@ -214,7 +213,7 @@ The figures below present the distributions of the estimated epidemic characteri
 
 The figure below summarizes the estimated epidemic characteristics for Paraná (PR).
 
-<img src="figures/hist_pars_41.png" width="1500">
+<img src="figures/hist_pars_41_dengue_state.png" width="1500">
 
 
 The results above correspond to Paraná (PR). Equivalent visualizations for all other Brazilian states are available in the [Supplementary Material](figures/sup_mat_dengue_state.md).
@@ -224,3 +223,5 @@ The results above correspond to Paraná (PR). Equivalent visualizations for all 
 Freitas, Laís Picinini, et al. "A statistical model for forecasting probabilistic epidemic bands for dengue cases in Brazil." Infectious Disease Modelling (2025).
 
 Araujo, Eduardo C., et al. "Large-scale epidemiological modelling: scanning for mosquito-borne diseases spatio-temporal patterns in Brazil." Royal Society Open Science 12.5 (2025): 1-13.
+
+Araujo, Eduardo C., et al. "Leveraging Probabilistic Forecasts for Dengue Preparedness and Control: The 2024 Dengue Forecasting Sprint in Brazil." Proceedings of the National Academy of Sciences of the United States of America, vol. 123, no. 7, 2026, e2508989123. https://doi.org/10.1073/pnas.2508989123.
