@@ -209,7 +209,7 @@ The figure above presents the results for Goiás (GO). Equivalent visualizations
 
 Additionally, using the copula-based approach described below, we transformed each model forecast into the parameters of a log-normal distribution. From these distributions, we generated 1,000 samples for each forecast and estimated four epidemic characteristics: the total number of cases, the maximum weekly number of cases (peak intensity), the peak week, and the epidemic onset week, together with their corresponding confidence intervals. The peak week and epidemic onset week were estimated by fitting a Richards growth model to the sampled trajectories, following the methodology proposed by Araujo et al. (2025).
 
-The figures below present the distributions of the estimated epidemic characteristics for each validation period and forecasting model. In each histogram, the red dashed line indicates the observed value, while the blue bars represent the median estimate produced by each model. Results are shown beginning with Validation 2, as estimation of the copula parameter (\rho) requires information from the preceding validation period.
+The figures below present the distributions of the estimated epidemic characteristics for each validation period and forecasting model. In each histogram, the red dashed line indicates the observed value, while the blue bars represent the median estimate produced by each model. Results are shown beginning with Validation 2, since the copula-based approach requires information from the preceding validation period.
 
 The figure below summarizes the estimated epidemic characteristics for Paraná (PR).
 
@@ -217,6 +217,11 @@ The figure below summarizes the estimated epidemic characteristics for Paraná (
 
 
 The results above correspond to Paraná (PR). Equivalent visualizations for all other Brazilian states are available in the [Supplementary Material](figures/sup_mat_dengue_state.md).
+
+**Sampling from the ensemble using a copula-based approach**
+
+The approach separates two ingredients: the marginal distributions supplied by the model at each time point, and the temporal dependence structure that links them across a season. For the dependence structure, we assume an exponentiated AR(1) process (LNAR(1)), which is governed by a single autocorrelation parameter. This parameter is estimated once, from a previous validation set (validation set 1). The estimated autocorrelation is then treated as known in all subsequent calculations. Combining this fixed correlation with the model's marginal parameters, we draw full-season sample paths from the LNAR(1). Each sample path is then reduced to an epidemiologically meaningful summary quantity ($\theta$) -- for example, by fitting the Richards growth model as in Araujo et al. (2025) -- producing a full distribution over $\theta$.
+
 
 ## References 
 

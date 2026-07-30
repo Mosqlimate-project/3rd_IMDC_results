@@ -153,7 +153,8 @@ def plot_zoom_state(
     figsize=(10, 5),
     savepath=None,
     loc_legend = 'upper left',
-    disease = 'dengue'
+    disease = 'dengue',
+    ylim = None 
 ):
     """
     Plot dengue observations and model predictions for one state,
@@ -222,7 +223,7 @@ def plot_zoom_state(
 
             color = color_palette[model]
             alpha = 1
-            lw = 2
+            lw = 2.5
             label = "Baseline"
 
         elif model in best_models:
@@ -320,6 +321,9 @@ def plot_zoom_state(
         kwargs["ncol"] = 2
 
     ax.legend(handles, labels, **kwargs)
+
+    if ylim is not None: 
+        ax.set_ylim([0, ylim])
 
     if savepath is not None:
         plt.savefig(savepath, dpi=300, bbox_inches="tight")
@@ -1170,6 +1174,7 @@ def plot_model_scatter(
     ylim=(0, 1),
     figsize=(12, 7),
     savepath=None,
+    color_palette = None
 ):
     """
     Plot model stability using the mean and standard deviation of log(WIS ratio).
@@ -1258,15 +1263,13 @@ def plot_model_scatter(
         label="Other models",
     )
 
-    # Highlighted models
-    colors = plt.cm.tab20.colors
-
-    for color, (_, row) in zip(colors, df_agg.loc[mask].iterrows()):
+    
+    for _, row in df_agg.loc[mask].iterrows():
 
         ax.scatter(
             row["mean"],
             row["std"],
-            color=color,
+            color=color_palette[row['model']],
             s=70,
             edgecolor="black",
             linewidth=0.5,
