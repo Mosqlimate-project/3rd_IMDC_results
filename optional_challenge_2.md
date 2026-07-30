@@ -126,7 +126,7 @@ Models are ordered from left to right according to the number of green cells, wi
 
 ![](figures/matrix_BR_chik_state_T.png)
 
-The value of this metric for each state and model is presented in this additional file [Supplementary Material](figures/sup_mat_dengue_state.md). 
+The value of this metric for each state and model is presented in this additional file [Supplementary Material](figures/sup_mat_chik_state.md). 
 
 
 As a complement to the heatmaps, we generated the figures below, considering only models with a geometric mean of ($R_v < 1$) for each state.
@@ -152,7 +152,7 @@ in this additional file [Supplementary Material](figures/sup_mat_chik_state.md).
 
 The bar chart below shows the number of Brazilian states in which each model achieved the highest overall ranking, based on the geometric mean of the relative Weighted Interval Score ($R_v$) across the four validation periods.
 
-![Best models by state](./figures/count_best_models_state_chik_state.png)
+![Best models by state](./figures/count_best_models_chik_state.png)
 
 The map below illustrates the best-performing model in each state. States are colored according to the model that obtained the highest ranking, providing an overview of the geographical distribution of model performance across Brazil.
 

@@ -179,7 +179,7 @@ The table below illustrates the best-performing model in each city.
 |Londrina - PR	|EMAP_LSTM|
 |Campo Novo do Parecis - MT|	EMAP_SARIMAX|
 |Aparecida de Goiânia - GO|	NUS-CERM|
-|Novo Gama - GO	EMAP_BLUE|
+|Novo Gama - GO|	EMAP_BLUE|
 
 
 
