@@ -219,6 +219,10 @@ The figure below summarizes the estimated epidemic characteristics for Paraná (
 
 The results above correspond to Paraná (PR). Equivalent visualizations for all other Brazilian states are available in the [Supplementary Material](figures/sup_mat_dengue_state.md).
 
+**Sampling from the ensemble using a copula-based approach**
+
+The approach separates two ingredients: the marginal distributions supplied by the ensemble at each time point, and the temporal dependence structure that links them across a season. For the dependence structure, we assume an exponentiated AR(1) process (LNAR(1)), which is governed by a single autocorrelation parameter. This parameter is estimated once, from a previous validation set (validation set 1), by pooling information across ensemble members via Vincentization (averaging corresponding quantiles across members). The estimated autocorrelation is then treated as known in all subsequent calculations. Combining this fixed correlation with the ensemble's marginal parameters, we draw full-season sample paths from the LNAR(1). Each sample path is then reduced to an epidemiologically meaningful summary quantity ($\theta$) -- for example, by fitting the Richards growth model as in Araujo et al. (2025) -- producing a full distribution over $\theta$.
+
 ## References 
 
 Freitas, Laís Picinini, et al. "A statistical model for forecasting probabilistic epidemic bands for dengue cases in Brazil." Infectious Disease Modelling (2025).
