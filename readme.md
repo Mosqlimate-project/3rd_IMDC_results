@@ -38,13 +38,13 @@ This document presents the results for the **Mandatory Challenge (Dengue – Sta
 
 | Team | Institution | Country | Repository | Label in plots |
 |------|-------------|---------|------------|---------------|
-| Global Health Resilience (GHR) | Barcelona Supercomputing Center | Spain | https://github.com/dievillano/3rd_imdc_bsc_ghr | BSC |
-| Cornell-PEH | Cornell University | United States | hhttps://github.com/BentoLab-DiseaseDynamics/3rd_imdc_cornell_bentolab| CORNELL | 
+| Global Health Resilience (GHR)* | Barcelona Supercomputing Center | Spain | https://github.com/dievillano/3rd_imdc_bsc_ghr | BSC |
+| Cornell-PEH | Cornell University | United States | https://github.com/BentoLab-DiseaseDynamics/3rd_imdc_cornell_bentolab| CORNELL | 
 | LNCC ARP26 | Laboratório Nacional de Computação Científica | Brazil | https://github.com/pesquefGH/3rd_imdc_lncc_lncc_arp26_dengue | LNCC_ARP26 | 
 | LNCC SURGE | Laboratório Nacional de Computação Científica | Brazil |https://github.com/pesquefGH/3rd_imdc_lncc_surge_model26_dengue | LNCC_SURGE | 
 | LNCC CLIDENGO | Laboratório Nacional de Computação Científica | Brazil |https://github.com/americocunhajr/3rd_imdc_lncc_clidengo26dengue | LNCC_CLIDENGO | 
-| Epidemáticos - Prophet | FGV EMAp | Brazil | https://github.com/EzequielEBS/3rd_imdc_emap_epidematicos_prophet | EMAP_PROPHET | 
-| Epidemáticos - Sarimax | FGV EMAp | Brazil | https://github.com/EzequielEBS/3rd_imdc_emap_epidematicos_sarimax_state | EMAP_SARIMAX | 
+| Epidemáticos - Prophet* | FGV EMAp | Brazil | https://mosqlimate.org/EzequielEBS/3rd_imdc_emap_epidematicos_prophet_fixed | EMAP_PROPHET | 
+| Epidemáticos - Sarimax* | FGV EMAp | Brazil | https://mosqlimate.org/EzequielEBS/3rd_imdc_emap_epidematicos_sarimax_fixed | EMAP_SARIMAX | 
 | Grupo Modelamiento de datos en Dengue | Universidad del Valle | Colombia | https://github.com/germanavila09/3rd_imdc_universidad_del_valle_grupo_modelamiento_datos_dengue | UNI_DEL_VALLE | 
 | InfraMIND | IFGW Unicamp and BIFI Universidad de Zaragoza | Brazil | https://github.com/InfraMIND-models/3rd_imdc_ifgw_inframind-proteus | IFGW | 
 | ISI Dengue | ISI Foundation | Italy | https://github.com/mattiamazzoli/3rd_imdc_isi_isi-dengue | ISI | 
@@ -65,6 +65,8 @@ This document presents the results for the **Mandatory Challenge (Dengue – Sta
 | NUS CERM| National University of Singapore | Singapore |https://github.com/SungmokJung/3rd_imdc_nus_nus-cerm| NUS-CERM| 
 | AFYA| Afya | Brazil |https://github.com/Ricafya/3rd_imdc_afya_ric| AFYA| 
 | 4 Mosquiteiras|	Federal University of São Paulo (UNIFESP)	| Brazil	| https://github.com/blaiate/3rd_imdc_-unifesp-_-4mosqueteiras- | UNIFESP | 
+
+*The validation forecasts for these models have been updated following the identification of inconsistencies in the workflow used to generate them.
 
 ## Ranking and Scoring 
 

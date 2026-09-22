@@ -59,8 +59,8 @@ Forecast dengue cases for 15 selected cities:
 
 | Team | Institution | Country | Repository | Label in plots |
 |------|-------------|---------|------------|---------------|
-| Epidemáticos - Prophet | FGV EMAp | Brazil | https://github.com/EzequielEBS/3rd_imdc_emap_epidematicos_prophet | EMAP_PROPHET | 
-| Epidemáticos - Sarimax | FGV EMAp | Brazil | https://github.com/EzequielEBS/3rd_imdc_emap_epidematicos_sarimax_muni | EMAP_SARIMAX | 
+| Epidemáticos - Prophet* | FGV EMAp | Brazil | https://github.com/EzequielEBS/3rd_imdc_emap_epidematicos_prophet_fixed | EMAP_PROPHET | 
+| Epidemáticos - Sarimax* | FGV EMAp | Brazil | https://github.com/EzequielEBS/3rd_imdc_emap_epidematicos_sarimax_fixed | EMAP_SARIMAX | 
 | NUS CERM| National University of Singapore | Singapore |https://github.com/SungmokJung/3rd_imdc_nus_nus-cerm| NUS-CERM| 
 | XGBSillas | FGV-EMAP | Brazil | https://github.com/scrocha/3rd_imdc_emap_xgbsillas | EMAP_XGB |
 | ISI Dengue | ISI Foundation | Italy | https://github.com/mattiamazzoli/3rd_imdc_isi_isi-dengue | ISI | 
@@ -69,6 +69,8 @@ Forecast dengue cases for 15 selected cities:
 | Grupo Modelamiento de datos en Dengue | Universidad del Valle | Colombia | https://github.com/germanavila09/3rd_imdc_universidad_del_valle_grupo_modelamiento_datos_dengue | 
 | Neural Earth | Purdue University | United States |https://github.com/kamrul28890/3rd_imdc_purdue_neuralearth | PURDUE | 
 | Recogna | UNESP | Brazil | https://github.com/joel-da-silva-cavalcanti-filho/3rd_imdc_unesp_recogna | UNESP | 
+
+*The validation forecasts for these models have been updated following the identification of inconsistencies in the workflow used to generate them.
 
 ## Ranking and Scoring 
 

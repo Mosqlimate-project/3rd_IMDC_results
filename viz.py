@@ -1266,6 +1266,8 @@ def plot_model_scatter(
     
     for _, row in df_agg.loc[mask].iterrows():
 
+        print(row['model'])
+
         ax.scatter(
             row["mean"],
             row["std"],

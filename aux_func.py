@@ -42,17 +42,16 @@ rename_models = {'3rd_imdc_isi_isi-dengue': 'ISI',
                                  '3rd_imdc_lncc_clidengo26dengue': "LNCC_CLIDENGO",
                                       '3rd_imdc_fiocruz_zerolags': "FIOCRUZ_ZEROLAGS",
                                       '3rd_imdc_cornell_bentolab': "CORNELL",
-                             '3rd_imdc_emap_epidematicos_prophet': "EMAP_PROPHET",
+                             '3rd_imdc_emap_epidematicos_prophet_fixed': "EMAP_PROPHET",
                                             '3rd_imdc_fgv_sakhal': "EMAP_SAKHAL",
                                '3rd_imdc_rki_rki_zki_ph_lstm_geo': "RKI_LSTM",
                                               '3rd_imdc_afya_ric': "AFYA",
                                         '3rd_imdc_rki_rki_zki_ph': "RKI_PH",
-                       '3rd_imdc_emap_epidematicos_sarimax_state': 'EMAP_SARIMAX', 
+                       '3rd_imdc_emap_epidematicos_sarimax_fixed': 'EMAP_SARIMAX', 
                        '3rd_imdc_-unifesp-_-4mosqueteiras-': 'UNIFESP',
                                 '3rd_imdc_lncc_ARp26_chikungunya': 'LNCC_ARP26',
                                 '3rd_imdc_lncc_clidengo26chikungunya':'LNCC_CLIDENGO',
                                 '3rd_imdc_lncc_surge_model26_chikungunya':'LNCC_SURGE',
-                                '3rd_imdc_emap_epidematicos_sarimax_muni': 'EMAP_SARIMAX',
                                 '3rd_imdc_emap_lstm_muni': 'EMAP_LSTM'} 
 
 
@@ -104,6 +103,11 @@ geo_chik = [2211001,2931350,3143302,3119401,
 
 def get_data(name = 'dengue_state'): 
 
-    df = pd.read_csv(f'data/{name}.csv.gz')
+    try: 
+        df = pd.read_csv(f'data/{name}.csv.gz')
+
+    except: 
+        df = pd.read_csv(f'../data/{name}.csv.gz')
+
 
     return df

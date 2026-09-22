@@ -38,8 +38,8 @@ This document presents the results for the **Optional Challenge 2 – Chikunguny
 
 | Team | Institution | Country | Repository | Label in plots |
 |------|-------------|---------|------------|---------------|
-| Epidemáticos - Prophet | FGV EMAp | Brazil | https://github.com/EzequielEBS/3rd_imdc_emap_epidematicos_prophet | EMAP_PROPHET | 
-| Epidemáticos - Sarimax | FGV EMAp | Brazil | https://github.com/EzequielEBS/3rd_imdc_emap_epidematicos_sarimax_state | EMAP_SARIMAX | 
+| Epidemáticos - Prophet* | FGV EMAp | Brazil | https://github.com/EzequielEBS/3rd_imdc_emap_epidematicos_prophet_fixed | EMAP_PROPHET | 
+| Epidemáticos - Sarimax* | FGV EMAp | Brazil | https://github.com/EzequielEBS/3rd_imdc_emap_epidematicos_sarimax_fixed | EMAP_SARIMAX | 
 | LNCC ARP26 | Laboratório Nacional de Computação Científica | Brazil | https://github.com/pesquefGH/3rd_imdc_lncc_lncc_arp26_chikungunya | LNCC_ARP26 |
 | LNCC SURGE | Laboratório Nacional de Computação Científica | Brazil |https://github.com/pesquefGH/3rd_imdc_lncc_surge_model26_chikungunya | LNCC_SURGE | 
 | NUS CERM| National University of Singapore | Singapore |https://github.com/SungmokJung/3rd_imdc_nus_nus-cerm| NUS-CERM| 
@@ -50,6 +50,7 @@ This document presents the results for the **Optional Challenge 2 – Chikunguny
 | LNCC CLIDENGO | Laboratório Nacional de Computação Científica | Brazil |https://github.com/americocunhajr/3rd_imdc_lncc_clidengo26chikungunya | LNCC_CLIDENGO | 
 | Dengue Oracle | FGV-EMAP | Brazil | https://github.com/eduardocorrearaujo/3rd_imdc_emap_lstm | EMAP_LSTM | 
 
+*The validation forecasts for these models have been updated following the identification of inconsistencies in the workflow used to generate them.
 
 ## Ranking and Scoring 
 

@@ -54,13 +54,15 @@ Forecast chikungunya cases for 10 selected cities:
 
 | Team | Institution | Country | Repository | Label in plots |
 |------|-------------|---------|------------|---------------|
-| Epidemáticos - Prophet | FGV EMAp | Brazil | https://github.com/EzequielEBS/3rd_imdc_emap_epidematicos_prophet | EMAP_PROPHET | 
-| Epidemáticos - Sarimax | FGV EMAp | Brazil | https://github.com/EzequielEBS/3rd_imdc_emap_epidematicos_sarimax_muni | EMAP_SARIMAX |  
+| Epidemáticos - Prophet* | FGV EMAp | Brazil | https://github.com/EzequielEBS/3rd_imdc_emap_epidematicos_prophet_fixed | EMAP_PROPHET | 
+| Epidemáticos - Sarimax* | FGV EMAp | Brazil | https://github.com/EzequielEBS/3rd_imdc_emap_epidematicos_sarimax_fixed | EMAP_SARIMAX |  
 | NUS CERM| National University of Singapore | Singapore |https://github.com/SungmokJung/3rd_imdc_nus_nus-cerm| NUS-CERM| 
 | XGBSillas | FGV-EMAP | Brazil | https://github.com/scrocha/3rd_imdc_emap_xgbsillas | EMAP_XGB |
 | Dengue Oracle | FGV-EMAP | Brazil | https://github.com/eduardocorrearaujo/3rd_imdc_emap_lstm_muni | EMAP_LSTM | 
 | Neural Earth | Purdue University | United States |https://github.com/kamrul28890/3rd_imdc_purdue_neuralearth | PURDUE | 
  
+*The validation forecasts for these models have been updated following the identification of inconsistencies in the workflow used to generate them.
+
 ## Ranking and Scoring 
 
 Model performance was evaluated using the **Weighted Interval Score (WIS)**, a proper scoring rule for probabilistic forecasts. To facilitate comparisons across models and cities, we expressed the performance of each model relative to a baseline forecast by computing the ratio between its WIS and the WIS of a baseline model.
