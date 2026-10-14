@@ -1,4 +1,8 @@
 model_name,disease,qtd_adm,todos_com_4_validaçoes,challenge,dados_corretos
+fccoelho/mosqlimate-ai-competitor,A90,26,True,dengue_state,True
+fccoelho/mosqlimate-ai-competitor,A92.0,26,True,chik_state,True
+ZuilhoSe/3rd_imdc_fgv_pattern-blue,A90,26,True,dengue_state,True
+ZuilhoSe/3rd_imdc_fgv_pattern-blue,A90,15,True,dengue_city,True
 asgouveiaa/3rd_imdc_fiocruz_mard,A90,26,True,dengue_state,True
 BentoLab-DiseaseDynamics/3rd_imdc_cornell_bentolab,A90,26,True,dengue_state,True
 lsbastos/3rd_imdc_procc_bb_model,A90,26,True,dengue_state,True
@@ -60,8 +64,6 @@ EzequielEBS/3rd_imdc_emap_epidematicos_prophet_fixed,A90,15,True,dengue_city,Tru
 EzequielEBS/3rd_imdc_emap_epidematicos_prophet,A92.0,10,True,chik_city,True
 EzequielEBS/3rd_imdc_emap_epidematicos_prophet_fixed,A92.0,10,True,chik_city,True
 Luizsrs/3rd_imdc_fiocruz_zerolags,A90,26,True,dengue_state,True
-ZuilhoSe/3rd_imdc_fgv_pattern-blue,A90,26,True,dengue_state,True
-ZuilhoSe/3rd_imdc_fgv_pattern-blue,A90,15,True,dengue_city,True
 germanavila09/3rd_imdc_universidad_del_valle_grupo_modelamiento_datos_dengue,A90,26,True,dengue_state,True
 germanavila09/3rd_imdc_universidad_del_valle_grupo_modelamiento_datos_dengue,A90,15,True,dengue_city,True
 felipe-matsuoka123/Dasa_IMDC2026,A90,26,False,dengue_state,False

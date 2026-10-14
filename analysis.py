@@ -53,10 +53,16 @@ def sample_path(forecast_marginals, rho, random_state=None):
 # ----------------------------------------------------------------------
 def build_marginals(F_marginals, col_region, region, label='Forecast'):
     # Filtro usando a sintaxe de indexação booleana do Pandas
-    df = F_marginals[
-        (F_marginals[col_region] == region) & 
-        (F_marginals['validation'] == label)
-    ]
+
+    if label is None: 
+        df = F_marginals[
+            (F_marginals[col_region] == region)]
+
+    else: 
+        df = F_marginals[
+            (F_marginals[col_region] == region) & 
+            (F_marginals['validation'] == label)
+        ]
     
     # Remoção de duplicadas e ordenação
     df = df.drop_duplicates(subset=['date'], keep='first').sort_values('date')
@@ -66,7 +72,6 @@ def build_marginals(F_marginals, col_region, region, label='Forecast'):
         st.lognorm(s=row.sigma, scale=np.exp(row.mu))
         for row in df.itertuples(index=False)
     ]
-
 
 @np.vectorize
 def richards(L, a, b, t, tj):

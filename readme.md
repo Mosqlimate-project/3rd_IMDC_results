@@ -65,6 +65,8 @@ This document presents the results for the **Mandatory Challenge (Dengue – Sta
 | NUS CERM| National University of Singapore | Singapore |https://github.com/SungmokJung/3rd_imdc_nus_nus-cerm| NUS-CERM| 
 | AFYA| Afya | Brazil |https://github.com/Ricafya/3rd_imdc_afya_ric| AFYA| 
 | 4 Mosquiteiras|	Federal University of São Paulo (UNIFESP)	| Brazil	| https://github.com/blaiate/3rd_imdc_-unifesp-_-4mosqueteiras- | UNIFESP | 
+| Mosqlimate AI | FGV-EMAP | Brazil | https://github.com/fccoelho/mosqlimate-ai-competitor | EMAP_TIMESFM |
+
 
 *The validation forecasts for these models have been updated following the identification of inconsistencies in the workflow used to generate them.
 

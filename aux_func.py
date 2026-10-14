@@ -52,7 +52,8 @@ rename_models = {'3rd_imdc_isi_isi-dengue': 'ISI',
                                 '3rd_imdc_lncc_ARp26_chikungunya': 'LNCC_ARP26',
                                 '3rd_imdc_lncc_clidengo26chikungunya':'LNCC_CLIDENGO',
                                 '3rd_imdc_lncc_surge_model26_chikungunya':'LNCC_SURGE',
-                                '3rd_imdc_emap_lstm_muni': 'EMAP_LSTM'} 
+                                '3rd_imdc_emap_lstm_muni': 'EMAP_LSTM',
+                                'mosqlimate-ai-competitor': 'EMAP_TIMESFM'} 
 
 
 color_palette = {'UNIFESP': '#d60000',
@@ -81,7 +82,8 @@ color_palette = {'UNIFESP': '#d60000',
  'RKI_LSTM': '#edb8b8',
  'UNESP': '#5d7e66',
  'UNI_DEL_VALLE': '#9ae4ff',
- 'DS-OKSTATE': '#eb0077'}
+ 'DS-OKSTATE': '#eb0077', 
+ 'EMAP_TIMESFM': 'brown'}
 
 ## Plots Best models by state: 
 
