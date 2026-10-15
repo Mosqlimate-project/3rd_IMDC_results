@@ -7,7 +7,10 @@
 **Funding:**  
 <img src="figures/Wellcome_Trust_logo.png" width="  100" />
 
-This file presents the results of the ensemble forecasts generated from submitted dengue forecasting models for the state-level **mandatory challenge** of the 2026 IMDC.
+This file presents the results of the ensemble forecasts generated from submitted dengue forecasting models for the state-level **Mandatory Challenge (Dengue – State Level)** of the 2026 IMDC. The results for the optional challenges are available in the following files:
+
+
+* [Optional Challenge 2 - Chikungunya state](ensemble_results_optional_challenge_2.md).
 
 ---
 
@@ -65,7 +68,7 @@ To obtain a single score for each state, the **geometric mean** of $R_v$ across 
 
 The figure below shows, for each row, the rank of the model corresponding to the column name within each validation set, based on the geometric mean of the wis ratio. For each state, the model with the lowest geometric average across the four validation periods was selected (column name). The figure illustrates that model performance can vary between validation years, as observed for states such as MG and BA. This lack of consistency in model performance, combined with the limited number of validation samples, informed the methodology used for constructing the ensemble.
 
-![Ranking of best models](figures/forecast_puzzle.png)  
+![Ranking of best models](figures/forecast_puzzle_dengue_state.png)  
 
 
 ---
@@ -104,7 +107,7 @@ To summarize the results shown in the figure above, we calculated, for each ense
 
 The figure below presents the median and confidence interval of 90% of the total cases computed for the 2026-2027 season against the number of cases notified up to EW 202639.
 
-![](figures/cum_inc_2027_en_dengue_state.png)
+![](figures/cum_inc_2027_en_dengue_state_log.png)
 
 
 The map and table below show, by state, the percentage ratio between the cumulative incidence predicted by the median of the ensemble model (2026-2027 season) and the cumulative incidence observed during the 2025-2026 season.
