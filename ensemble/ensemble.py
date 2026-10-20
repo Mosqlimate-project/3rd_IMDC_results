@@ -1,6 +1,6 @@
 import pandas as pd 
 
-def compute_ensemble(df_preds, models = None): 
+def compute_ensemble(df_preds, models = None, col_region = 'adm_1'): 
 
 
     if models is not None: 
@@ -12,10 +12,10 @@ def compute_ensemble(df_preds, models = None):
            'upper_50', 'upper_80', 'upper_90', 'upper_95']:
 
         try: 
-            list_dfs.append(pd.DataFrame(df_preds.pivot(index = ['date', 'adm_1', 'valid_test'],
+            list_dfs.append(pd.DataFrame(df_preds.pivot(index = ['date', col_region, 'valid_test'],
                                                     columns = 'model', values = col).median(axis =1)).rename(columns = {0: col}))
         except: 
-            list_dfs.append(pd.DataFrame(df_preds.pivot(index = ['date', 'adm_1'],
+            list_dfs.append(pd.DataFrame(df_preds.pivot(index = ['date', col_region],
                                                     columns = 'model', values = col).median(axis =1)).rename(columns = {0: col}))
 
 
